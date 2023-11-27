@@ -217,44 +217,6 @@ def createreleasesforexistingartists():
 
         print("Release added to Artist")
 
-def fixsongs():
-        # Access the 'songs' collection
-    songs_collection = db['songs']
-
-    # Find documents where the 'artist' attribute is an empty array
-    songs_to_update = songs_collection.find({'artists': []})
-
-    print(songs_to_update)
-
-    # Iterate through the matching documents
-    for song in songs_to_update:
-        # Access the first ObjectID in the 'releases' array
-        if 'releases' in song and song['releases']:
-            first_release_id = song['releases'][0]
-
-            print(f"Release {first_release_id}")
-
-            # Find the associated release
-            release = db['releases'].find_one({'_id': ObjectId(first_release_id)})
-
-            if release:
-                # Access the ObjectID in the release's 'artist' array
-                if 'artists' in release:
-                    artist_id = release['artists'][0]
-
-
-                    # Find the associated artist
-                    artist = db['artists'].find_one({'_id': ObjectId(artist_id)})
-                    print(f"Artists {artist}")
-
-                    if artist:
-                        # Append the artist's ObjectID to the 'artists' array in the song
-                        songs_collection.update_one(
-                            {'_id': song['_id']},
-                            {'$push': {'artists': artist['_id']}}
-                        )
-
-
 if __name__ == "__main__":   
 
     # Get the database for the functions to use
@@ -262,9 +224,6 @@ if __name__ == "__main__":
 
     # Creates songs for releases and releases for artists (each run creates 5 artists, 1 release per artist created (so 5 new releases))    
     #[createartistwithalbums() for _ in range(5)]
-
-    # Call the function to update songs
-    fixsongs()
 
     # Adds existing songs and releases to user's libraries
     # userslikemusic()
