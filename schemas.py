@@ -73,3 +73,29 @@ def song():
         },
         "tags": Song.tags
     }
+
+def playlist():
+    
+    Playlist = Gens.Playlist()
+
+    return {
+        "title": Playlist.title,
+        "description": Playlist.description,
+        "visibility": Playlist.visibility,
+        "user": ObjectId,
+        "saves": Playlist.saves,
+        "songs": []
+    }
+
+def artistplaylist():
+    
+    Playlist = Gens.Playlist()
+
+    return {
+        "title": Playlist.title,
+        "description": Playlist.description,
+        "visibility": Playlist.visibility,
+        "artist": ObjectId,
+        "saves": Playlist.saves,
+        "songs": []
+    }

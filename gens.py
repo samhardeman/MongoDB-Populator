@@ -99,12 +99,25 @@ class Song:
         self.producers = peoplearray()
         self.tags = tags()
 
+class Playlist:
+    def __init__(self):
+        self.title = title()
+        self.description = ' '.join(tags())
+        self.visibility = self.visible()
+        self.saves = Items.rand(0, 100)
+
+    def visible(self):
+        return 'Private' if Items.rand(0, 1) == 1 else 'Public'
+
+
 def title():
     thedecider = ""
 
+    # Decides whether or not to put a 'The' at the beginning
     if random.randrange(0, 2) == 1:
         thedecider = "The "
 
+    # Puts it all together and formats it like a title
     return f"{thedecider}{Items.predicates()} {Items.objects()}".title()
 
 def playlist():
