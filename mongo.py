@@ -9,7 +9,6 @@ def get_database():
 
    db = client["spotify"]
 
-
    return db
 
 def createartistwithalbums():
